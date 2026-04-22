@@ -1,0 +1,72 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
+                "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/include",
+                "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_k64f/zephyr/include/generated",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/soc/arm/nxp_kinetis/k6x",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/cmsis/CMSIS/Core/Include",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/nxp/mcux/devices/MK64F12",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/nxp/mcux/drivers/kinetis",
+                "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
+                    "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/include",
+                    "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_k64f/zephyr/include/generated",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/soc/arm/nxp_kinetis/k6x",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/cmsis/CMSIS/Core/Include",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/nxp/mcux/devices/MK64F12",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/_pio/modules/hal/nxp/mcux/drivers/kinetis",
+                    "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60119",
+                "BUILD_VERSION=zephyr-v20701",
+                "BOARD_FLASH_SIZE=CONFIG_FLASH_SIZE*1024",
+                "CPU_MK64FN1M0VLL12",
+                "KERNEL",
+                "NDEBUG",
+                "_FORTIFY_SOURCE=2",
+                "__PROGRAM_START",
+                "__ZEPHYR__=1",
+                ""
+            ],
+            "cStandard": "c99",
+            "forcedInclude": [
+                "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_k64f/zephyr/include/generated/autoconf.h",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/include/toolchain/zephyr_stdint.h",
+                ""
+            ],
+            "compilerPath": "C:/Users/Users/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
+            "compilerArgs": [
+                "-mcpu=cortex-m4",
+                "-mthumb",
+                "-mabi=aapcs",
+                "-mfp16-format=ieee",
+                "-isystem",
+                "C:/Users/Users/.platformio/packages/framework-zephyr@2.20701.220422/lib/libc/minimal/include",
+                "-isystem",
+                "c:/users/users/.platformio/packages/toolchain-gccarmnoneeabi/bin/../lib/gcc/arm-none-eabi/8.2.1/include",
+                "-isystem",
+                "c:/users/users/.platformio/packages/toolchain-gccarmnoneeabi/bin/../lib/gcc/arm-none-eabi/8.2.1/include-fixed",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
