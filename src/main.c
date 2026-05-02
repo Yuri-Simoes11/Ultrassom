@@ -2,44 +2,102 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/devicetree.h>
-#include "pwm_z42.h"   // API para controle de PWM
+#include "pwm_z42.h"
 
-#define TPM_IRQ_LINE TPM1_IRQn  // relaciona a interrupção ao timer TPM1
-#define TPM_IRQ_PRIORITY 1      // define a prioridade da interrupção
+#define TPM_IRQ_LINE TPM1_IRQn
+#define TPM_IRQ_PRIORITY 1
+#define TPM_MODULE 1000
+#define TRIG_PORT GPIOA
+#define TRIG_PIN 5
+const struct device *gpioa;
 
-#define TPM_MODULE 1000         // Define a frequência do PWM fpwm = (TPM_CLK / (TPM_MODULE * PS))
+// ===================== VARIÁVEIS =====================
+volatile uint16_t rise_time = 0;
+volatile uint16_t fall_time = 0;
+volatile uint16_t pulse_width = 0;
+volatile uint8_t waiting_rise = 1;
 
-volatile uint16_t captured= 0; 
+// ===================== ISR (ECHO) =====================
+void tpm1_isr(void *arg) {
 
-void tpm1_isr(void *arg)
-{
-      // TPM1->STATUS |= TPM_STATUS_CH0F_MASK; // zerra a flag que gerou a interrupção
-       TPM1->STATUS = TPM_STATUS_CH0F_MASK;
-       captured = TPM1->CONTROLS[0].CnV; // coloca o valor atual do timer na variável "captured"
+    TPM1->CONTROLS[0].CnSC |= TPM_CnSC_CHF_MASK;
+
+    uint16_t now = TPM1->CONTROLS[0].CnV;
+
+    if (waiting_rise) {
+        rise_time = now;
+        waiting_rise = 0;
+
+        TPM1->CONTROLS[0].CnSC &= ~TPM_CnSC_ELSA_MASK;
+        TPM1->CONTROLS[0].CnSC |= TPM_CnSC_ELSB_MASK;
+    } else {
+        if (now >= rise_time)
+            pulse_width = now - rise_time;
+        else
+            pulse_width = (65535 - rise_time) + now;
+
+        waiting_rise = 1;
+
+        TPM1->CONTROLS[0].CnSC &= ~TPM_CnSC_ELSB_MASK;
+        TPM1->CONTROLS[0].CnSC |= TPM_CnSC_ELSA_MASK;
+    }
 }
 
-void main(void)
+// ===================== TRIGGER HC-SR04 =====================
+static void ultrasonic_trigger(void)
 {
+    gpio_pin_set(gpioa, TRIG_PIN, 1);
+    k_busy_wait(10);
+    gpio_pin_set(gpioa, TRIG_PIN, 0);
 
-    pwm_tpm_Init(TPM0, TPM_PLLFLL, TPM_MODULE, TPM_CLK, PS_128, EDGE_PWM);
-    
-    pwm_tpm_Ch_Init(TPM0, 1, TPM_PWM_H, GPIOD, 1);
+    waiting_rise = 1;   // <<< IMPORTANTE resetar estado
+}
 
-    pwm_tpm_CnV(TPM0, 1, 100); // Azul
-    
-    // Conecta a interrupção via Zephyr
+// ===================== MAIN =====================
+void main(void) {
+
+    // TIMER INPUT CAPTURE
     IRQ_CONNECT(TPM_IRQ_LINE, TPM_IRQ_PRIORITY, tpm1_isr, NULL, 0);
     irq_enable(TPM_IRQ_LINE);
- 
-    // Inicializa TPM1 com módulo e prescaler desejado
+
     pwm_tpm_Init(TPM1, TPM_PLLFLL, 65535, TPM_CLK, PS_128, EDGE_PWM);
 
-    // Configura TPM1_CH0 como input capture na borda de subida
-    pwm_tpm_Ch_Init(TPM1, 0, TPM_INPUT_CAPTURE_RISING| TPM_CHANNEL_INTERRUPT, GPIOE, 20);
+    // começa capturando subida
+    pwm_tpm_Ch_Init(TPM1, 0,
+        TPM_INPUT_CAPTURE_RISING | TPM_CHANNEL_INTERRUPT,GPIOA, 12);
+
+        gpioa = DEVICE_DT_GET(DT_NODELABEL(gpioa));
+
+    // Checa o gpio
+    if (!device_is_ready(gpioa)) {
+        printk("GPIO nao pronto!\n");
+        return;
+    } 
+
+    gpio_pin_configure(gpioa, TRIG_PIN, GPIO_OUTPUT_INACTIVE);
+ 
     while (1)
     {
-        printk("Valor do TPM1: %u\n", captured);
-        k_msleep(1000); 
+        // dispara medição
+        ultrasonic_trigger();
 
+        // espera resposta estabilizar
+        k_msleep(60);
+
+        // filtro básico (descarta lixo)
+        if (pulse_width > 0 && pulse_width < 40000)
+        {
+            // conversão aproximada HC-SR04
+            float distance_cm = pulse_width / 58.0f;
+
+            printk("Pulse: %u | Distance: %.2f cm\n",
+                   pulse_width, distance_cm);
+        }
+        else
+        {
+            printk("Leitura invalida: %u\n", pulse_width);
+        }
+
+        k_msleep(300);
     }
 }
