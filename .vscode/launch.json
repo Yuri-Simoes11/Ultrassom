@@ -12,7 +12,11 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
+<<<<<<< HEAD
             "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/firmware.elf",
+=======
+            "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/firmware.elf",
+>>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
             "projectEnvName": "frdm_kl25z",
             "toolchainBinDir": "C:/Users/Users/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
@@ -26,7 +30,11 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
+<<<<<<< HEAD
             "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/firmware.elf",
+=======
+            "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/firmware.elf",
+>>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
             "projectEnvName": "frdm_kl25z",
             "toolchainBinDir": "C:/Users/Users/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
@@ -36,7 +44,11 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
+<<<<<<< HEAD
             "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/firmware.elf",
+=======
+            "executable": "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/firmware.elf",
+>>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
             "projectEnvName": "frdm_kl25z",
             "toolchainBinDir": "C:/Users/Users/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
