@@ -10,6 +10,7 @@
             "includePath": [
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
+                "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/ultrassonic",
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
                 "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/include",
@@ -32,6 +33,7 @@
                 "path": [
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
+                    "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/ultrassonic",
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
                     "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/include",

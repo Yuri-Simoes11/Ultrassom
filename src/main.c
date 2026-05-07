@@ -1,103 +1,74 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/printk.h>
 #include <zephyr/devicetree.h>
-#include "pwm_z42.h"
+#include <pwm_z42.h>
+#include "ultrassonic.h"   
 
-#define TPM_IRQ_LINE TPM1_IRQn
-#define TPM_IRQ_PRIORITY 1
+// ===================== PORTAS =====================
+#define PORTA_NODE DT_NODELABEL(gpioa)
+#define PORTB_NODE DT_NODELABEL(gpiob)
+#define PORTD_NODE DT_NODELABEL(gpiod)
+
+static const struct device *porta = DEVICE_DT_GET(PORTA_NODE);
+static const struct device *portb = DEVICE_DT_GET(PORTB_NODE);
+static const struct device *portd = DEVICE_DT_GET(PORTD_NODE);
+
+// ===================== PWM =====================
 #define TPM_MODULE 1000
-#define TRIG_PORT GPIOA
-#define TRIG_PIN 5
-const struct device *gpioa;
 
-// ===================== VARIÁVEIS =====================
-volatile uint16_t rise_time = 0;
-volatile uint16_t fall_time = 0;
-volatile uint16_t pulse_width = 0;
-volatile uint8_t waiting_rise = 1;
-
-// ===================== ISR (ECHO) =====================
-void tpm1_isr(void *arg) {
-
-    TPM1->CONTROLS[0].CnSC |= TPM_CnSC_CHF_MASK;
-
-    uint16_t now = TPM1->CONTROLS[0].CnV;
-
-    if (waiting_rise) {
-        rise_time = now;
-        waiting_rise = 0;
-
-        TPM1->CONTROLS[0].CnSC &= ~TPM_CnSC_ELSA_MASK;
-        TPM1->CONTROLS[0].CnSC |= TPM_CnSC_ELSB_MASK;
-    } else {
-        if (now >= rise_time)
-            pulse_width = now - rise_time;
-        else
-            pulse_width = (65535 - rise_time) + now;
-
-        waiting_rise = 1;
-
-        TPM1->CONTROLS[0].CnSC &= ~TPM_CnSC_ELSB_MASK;
-        TPM1->CONTROLS[0].CnSC |= TPM_CnSC_ELSA_MASK;
-    }
-}
-
-// ===================== TRIGGER HC-SR04 =====================
-static void ultrasonic_trigger(void)
+int main(void)
 {
-    gpio_pin_set(gpioa, TRIG_PIN, 1);
-    k_busy_wait(10);
-    gpio_pin_set(gpioa, TRIG_PIN, 0);
+    // ===================== CHECK =====================
+    if (!device_is_ready(porta) ||
+        !device_is_ready(portb) ||
+        !device_is_ready(portd)) {
+        printk("Erro device\n");
+        return 0;
+    }
 
-    waiting_rise = 1;   // <<< IMPORTANTE resetar estado
-}
+    // ===================== ULTRASSOM =====================
+    ultrasonic_init();   // <<< inicia sua lib
 
-// ===================== MAIN =====================
-void main(void) {
+    // ===================== PWM =====================
+    pwm_tpm_Init(TPM1, TPM_PLLFLL, TPM_MODULE, TPM_CLK, PS_128, EDGE_PWM);
 
-    // TIMER INPUT CAPTURE
-    IRQ_CONNECT(TPM_IRQ_LINE, TPM_IRQ_PRIORITY, tpm1_isr, NULL, 0);
-    irq_enable(TPM_IRQ_LINE);
+    pwm_tpm_Ch_Init(TPM1, 0, TPM_PWM_H, GPIOB, 0); // esquerda
+    pwm_tpm_Ch_Init(TPM1, 1, TPM_PWM_H, GPIOB, 1); // direita
 
-    pwm_tpm_Init(TPM1, TPM_PLLFLL, 65535, TPM_CLK, PS_128, EDGE_PWM);
+    // ===================== DIREÇÃO =====================
+    gpio_pin_configure(portb, 2, GPIO_OUTPUT); // IN1
+    gpio_pin_configure(porta, 4, GPIO_OUTPUT); // IN2
+    gpio_pin_configure(porta, 13, GPIO_OUTPUT);// IN3
+    gpio_pin_configure(portd, 4, GPIO_OUTPUT); // IN4
 
-    // começa capturando subida
-    pwm_tpm_Ch_Init(TPM1, 0,
-        TPM_INPUT_CAPTURE_RISING | TPM_CHANNEL_INTERRUPT,GPIOA, 12);
+    int velocidade = 600;
 
-        gpioa = DEVICE_DT_GET(DT_NODELABEL(gpioa));
-
-    // Checa o gpio
-    if (!device_is_ready(gpioa)) {
-        printk("GPIO nao pronto!\n");
-        return;
-    } 
-
-    gpio_pin_configure(gpioa, TRIG_PIN, GPIO_OUTPUT_INACTIVE);
- 
     while (1)
     {
-        // dispara medição
-        ultrasonic_trigger();
+        float d = ultrasonic_read_cm();   // <<< leitura da sua biblioteca
 
-        // espera resposta estabilizar
-        k_msleep(60);
+        printk("Distancia: %.2f cm\n", d);
 
-        // filtro básico (descarta lixo)
-        if (pulse_width > 0 && pulse_width < 40000)
+        if (d > 20.0)
         {
-            // conversão aproximada HC-SR04
-            float distance_cm = pulse_width / 58.0f;
+            // ===================== ANDA RETO =====================
+            gpio_pin_set(porta, 13, 1);
+            gpio_pin_set(portd, 4, 0);
+            pwm_tpm_CnV(TPM1, 0, velocidade);
 
-            printk("Pulse: %u | Distance: %.2f cm\n",
-                   pulse_width, distance_cm);
+            gpio_pin_set(portb, 2, 1);
+            gpio_pin_set(porta, 4, 0);
+            pwm_tpm_CnV(TPM1, 1, velocidade);
         }
         else
         {
-            printk("Leitura invalida: %u\n", pulse_width);
+            // ===================== PARA =====================
+            pwm_tpm_CnV(TPM1, 0, 0);
+            pwm_tpm_CnV(TPM1, 1, 0);
         }
 
-        k_msleep(300);
+        k_msleep(100);
     }
 }

@@ -35,6 +35,10 @@
 #define PS_64 			6
 #define PS_128 			7
  
+#define TPM_INPUT_CAPTURE_RISING  TPM_CnSC_ELSA_MASK
+#define TPM_INPUT_CAPTURE_FALLING TPM_CnSC_ELSB_MASK
+#define TPM_CHANNEL_INTERRUPT     TPM_CnSC_CHIE_MASK
+
 #define TPM_OC_TOGGLE 	TPM_CnSC_MSA_MASK|TPM_CnSC_ELSA_MASK
 #define TPM_OC_CLR 		TPM_CnSC_MSA_MASK|TPM_CnSC_ELSB_MASK
 #define TPM_OC_SET 		TPM_CnSC_MSA_MASK|TPM_CnSC_ELSA_MASK|TPM_CnSC_ELSB_MASK
@@ -69,9 +73,3 @@ GPIO_MemMapPtr gpio,uint8_t pin);
 void pwm_tpm_CnV(TPM_MemMapPtr TPMx, uint16_t channel, uint16_t value);
  
 #endif /* SOURCES_PWM_H_ */
-
-// ==== Input Capture Mode (TPM) ====
-#define TPM_INPUT_CAPTURE_RISING  (TPM_CnSC_ELSA_MASK)                            // Captura borda de subida
-#define TPM_INPUT_CAPTURE_FALLING (TPM_CnSC_ELSB_MASK)                            // Captura borda de descida
-#define TPM_INPUT_CAPTURE_BOTH    (TPM_CnSC_ELSA_MASK | TPM_CnSC_ELSB_MASK)       // Captura ambas
-#define TPM_CHANNEL_INTERRUPT     (TPM_CnSC_CHIE_MASK)                            // Habilita interrupção
