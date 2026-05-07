@@ -8,21 +8,12 @@
         {
             "name": "PlatformIO",
             "includePath": [
-<<<<<<< HEAD
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
                 "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
                 "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/include",
                 "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated",
-=======
-                "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/include",
-                "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/src",
-                "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/lib/pwm",
-                "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
-                "C:/Users/Users/.platformio/packages/framework-zephyr/include",
-                "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/zephyr/include/generated",
->>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/kl2x",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/common",
@@ -39,21 +30,12 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-<<<<<<< HEAD
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/include",
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/src",
                     "c:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/lib/pwm",
                     "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/include",
                     "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated",
-=======
-                    "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/include",
-                    "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/src",
-                    "c:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/lib/pwm",
-                    "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr",
-                    "C:/Users/Users/.platformio/packages/framework-zephyr/include",
-                    "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/zephyr/include/generated",
->>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/kl2x",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/common",
@@ -81,11 +63,7 @@
             ],
             "cStandard": "c99",
             "forcedInclude": [
-<<<<<<< HEAD
                 "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr/autoconf.h",
-=======
-                "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/zephyr/include/generated/zephyr/autoconf.h",
->>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
                 "C:/Users/Users/.platformio/packages/framework-zephyr/include/zephyr/toolchain/zephyr_stdint.h",
                 ""
             ],
@@ -98,11 +76,7 @@
                 "-isystem",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/lib/libc/common/include",
                 "-isystem",
-<<<<<<< HEAD
                 "C:/Users/Users/Documents/PlatformIO/Projects/260422-085134-zephyr-blink-ultrassom/.pio/build/frdm_kl25z/modules/picolibc/picolibc/include",
-=======
-                "C:/Users/Users/Documents/PlatformIO/Projects/260415-093246-zephyr-blink-inputdig/.pio/build/frdm_kl25z/modules/picolibc/picolibc/include",
->>>>>>> ede2563b78a8ad74d4beed7803851c333c2b0905
                 "-isystem",
                 "c:/users/users/.platformio/packages/toolchain-gccarmnoneeabi/bin/../lib/gcc/arm-none-eabi/8.2.1/include",
                 "-isystem",
