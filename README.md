@@ -1,3 +1,8 @@
+PROJETO DO ULTRASSOM
+====================
+
+O código aqui está já modificado com biblioteca do ultrassom e funcionando, com a escala corrigida como era visto no video de exemplo. Há 2 videos e 2 imagens de prova caso necessário.
+
 How to build PlatformIO based project
 =====================================
 
